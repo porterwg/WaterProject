@@ -257,3 +257,4 @@
 /Users/portergraham/Library/CloudStorage/OneDrive-BrighamYoungUniversity/IS 413/WaterProject/backend/WaterProject.API/obj/Debug/net8.0/WaterProject.API.pdb
 /Users/portergraham/Library/CloudStorage/OneDrive-BrighamYoungUniversity/IS 413/WaterProject/backend/WaterProject.API/obj/Debug/net8.0/WaterProject.API.genruntimeconfig.cache
 /Users/portergraham/Library/CloudStorage/OneDrive-BrighamYoungUniversity/IS 413/WaterProject/backend/WaterProject.API/obj/Debug/net8.0/ref/WaterProject.API.dll
+/Users/portergraham/Library/CloudStorage/OneDrive-BrighamYoungUniversity/IS 413/WaterProject/backend/WaterProject.API/obj/Debug/net8.0/WaterProject.API.sourcelink.json
