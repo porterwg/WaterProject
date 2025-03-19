@@ -15,6 +15,17 @@ namespace WaterProject.API.Controllers
         [HttpGet("AllProjects")]
         public IActionResult GetProjects(int pageSize = 10, int pageNum = 1)
         {
+            string favoriteProjType = Request.Cookies["FavoriteProjectType"];
+            Console.WriteLine("~~~~COOKIE~~~~~\n" + favoriteProjType);
+            
+            HttpContext.Response.Cookies.Append("FavoriteProjectType", "Protected Spring", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTime.Now.AddMinutes(3)
+            });
+            
             var something = _context.Projects
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize)
