@@ -13,8 +13,16 @@ namespace WaterProject.API.Controllers
         public WaterController(WaterDbContext temp) => _context = temp;
 
         [HttpGet("AllProjects")]
-        public IActionResult GetProjects(int pageSize = 10, int pageNum = 1)
+        public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, [FromQuery] List<string>? projectTypes = null)
         {
+            
+            var query = _context.Projects.AsQueryable();
+
+            if (projectTypes != null && projectTypes.Any())
+            {
+                query = query.Where(p => projectTypes.Contains(p.ProjectType));
+            }
+            
             string favoriteProjType = Request.Cookies["FavoriteProjectType"];
             Console.WriteLine("~~~~COOKIE~~~~~\n" + favoriteProjType);
             
@@ -26,13 +34,13 @@ namespace WaterProject.API.Controllers
                 Expires = DateTime.Now.AddMinutes(3)
             });
             
-            var something = _context.Projects
+            var totalNumProjects = query.Count();
+            
+            var something = query
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
             
-            var totalNumProjects = _context.Projects.Count();
-
             var someObject = new
             {
                 Projects = something,
@@ -40,6 +48,17 @@ namespace WaterProject.API.Controllers
             };
 
             return Ok(someObject);
+        }
+
+        [HttpGet("GetProjectTypes")]
+        public IActionResult GetProjectTypes()
+        {
+            var projectTypes = _context.Projects
+                .Select(p => p.ProjectType)
+                .Distinct()
+                .ToList();
+            
+            return Ok(projectTypes);
         }
 
         [HttpGet("FunctionalProjects")]
